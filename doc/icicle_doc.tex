@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\pdfoutput=1
+\usepackage[utf8]{inputenc}
+
+%\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{0.4cm}
+\usepackage{microtype}
+\usepackage[hmarginratio=1:1,top=24mm,bottom=20mm,left=17mm,right=17mm,columnsep=20pt]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{caption}
+
+\title{Kinematic model documentation}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\section{Arguments}
+
+The kinematic model takes following arguments:
+
+\subsection{Grid attributes}
+
+\begin{itemize}
+\item \textbf{nx} : int (default = 76);\\ grid cell count in horizontal
+\item \textbf{nz} : int (default = 76);\\ grid cell count in vertical
+
+A size of every single cell can be calculated as $\frac{1500\mbox{\scriptsize{ m}}}{\mbox{nx}-1}\mbox{ \scriptsize{x} }\frac{1500\mbox{\scriptsize{ m}}}{\mbox{ny}-1}$.
+\end{itemize}
+
+\subsection{Output parameters}
+
+\begin{itemize}
+  \item \textbf{outdir} : string (required) \\ output HDF5 file name
+  \item \textbf{outfreq} : int (required); \\ output interval (in number of timesteps)
+\end{itemize}
+
+\subsection{Simulation parameters}
+
+\begin{itemize}
+\item \textbf{nt} : int (default = 3600);\\ number of timesteps
+\item \textbf{spinup} : int (default = 2400);\\ number of initial timesteps during which rain formation is to be turned off
+\item \textbf{adv\_serial} : bool (default = false);\\ force advection to be computed on a single thread if 'true', advection is computed on multiple threads if 'false'
+\item \textbf{relax\_th\_rv} : bool (default = true);\\ potential temperature and water vapour mass mixing ratio tend to relax to initial condition during the simulation if 'true'. If 'false', theese variables change with condensation and coalescense and rain removes water vapour from the domain. To achieve a stationary situation this parameter must by 'true'.
+\item \textbf{micro} : str (required);\\ a method for computing microphysics. Valid options are: 'blk\_1m', 'blk\_2m' and 'lgrngn'.
+ 
+\textbf{blk\_1m} is a single-moment microphysics scheme. 
+\begin{itemize}
+\item \textbf{cond}
+\end{itemize}
+
+
+
+\textbf{blk\_2m} is a double-moment microphysics scheme. Options for this method are:
+\begin{itemize}
+\item \textbf{cond}
+\end{itemize}
+
+
+
+\end{itemize}
+
+\section{Output}
+
+
+
+\section{Usage examples}
+
+\end{document}
