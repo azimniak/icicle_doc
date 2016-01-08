@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2013.2.10)  28 DEC 2015 15:27
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2013.2.10)  8 JAN 2016 18:36
 entering extended mode
 **icicle_doc.tex
 (./icicle_doc.tex
@@ -238,16 +238,21 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/share/texmf/tex/latex/tools/indentfirst.sty
-Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
-)
-(/usr/share/texmf/tex/latex/microtype/microtype.sty
-Package: microtype 2005/02/02 v1.6a Micro-typography with pdfTeX (RS)
+(/usr/share/texmf/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2004/07/19 v1.0 Customized lists
 
 (/usr/share/texmf/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
+\labelindent=\skip43
+\enit@outerparindent=\dimen103
+)
+(/usr/share/texmf/tex/latex/tools/indentfirst.sty
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(/usr/share/texmf/tex/latex/microtype/microtype.sty
+Package: microtype 2005/02/02 v1.6a Micro-typography with pdfTeX (RS)
 \MT@count=\count87
 Package microtype Info: Trying to load local config file `microtype.cfg' ...
 
@@ -267,10 +272,10 @@ Package: geometry 2002/07/08 v3.2 Page Geometry
 \Gm@cnth=\count88
 \Gm@cntv=\count89
 \c@Gm@tempcnt=\count90
-\Gm@bindingoffset=\dimen103
-\Gm@wd@mp=\dimen104
-\Gm@odd@mp=\dimen105
-\Gm@even@mp=\dimen106
+\Gm@bindingoffset=\dimen104
+\Gm@wd@mp=\dimen105
+\Gm@odd@mp=\dimen106
+\Gm@even@mp=\dimen107
 \Gm@dimlist=\toks15
 
 (/usr/share/texmf/tex/latex/geometry/geometry.cfg))
@@ -292,8 +297,8 @@ Package graphics Info: Driver file: pdftex.def on input line 80.
 File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
 \Gread@gobject=\count91
 ))
-\Gin@req@height=\dimen107
-\Gin@req@width=\dimen108
+\Gin@req@height=\dimen108
+\Gin@req@width=\dimen109
 )
 (/usr/share/texmf/tex/latex/caption/caption.sty
 Package: caption 2015/09/20 v3.3-118 Customizing captions (AR)
@@ -301,30 +306,38 @@ Package: caption 2015/09/20 v3.3-118 Customizing captions (AR)
 (/usr/share/texmf/tex/latex/caption/caption3.sty
 Package: caption3 2015/09/20 v1.7-117 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen109
-\captionmargin@=\dimen110
-\captionwidth=\dimen111
-\caption@tempdima=\dimen112
-\caption@indent=\dimen113
-\caption@parindent=\dimen114
-\caption@hangindent=\dimen115
+\captionmargin=\dimen110
+\captionmargin@=\dimen111
+\captionwidth=\dimen112
+\caption@tempdima=\dimen113
+\caption@indent=\dimen114
+\caption@parindent=\dimen115
+\caption@hangindent=\dimen116
 )
 \c@ContinuedFloat=\count92
+)
+(/usr/share/texmf/tex/latex/preprint/authblk.sty
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip44
+\@affilsep=\skip45
+\c@Maxaffil=\count93
+\c@authors=\count94
+\c@affil=\count95
 ) (./icicle_doc.aux)
 \openout1 = `icicle_doc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 
 (/usr/share/texmf/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2005/01/11 v1.5 microtype config. file: Computer Modern (RS)
@@ -372,79 +385,89 @@ driver: pdftex
 (/usr/share/texmf/tex/context/base/supp-pdf.tex
 (/usr/share/texmf/tex/context/base/supp-mis.tex
 loading : Context Support Macros / Miscellaneous (2004.10.26)
-\protectiondepth=\count93
-\scratchcounter=\count94
+\protectiondepth=\count96
+\scratchcounter=\count97
 \scratchtoks=\toks16
-\scratchdimen=\dimen116
-\scratchskip=\skip43
+\scratchdimen=\dimen117
+\scratchskip=\skip46
 \scratchmuskip=\muskip10
 \scratchbox=\box26
 \scratchread=\read1
 \scratchwrite=\write3
-\zeropoint=\dimen117
-\onepoint=\dimen118
-\onebasepoint=\dimen119
-\minusone=\count95
-\thousandpoint=\dimen120
-\onerealpoint=\dimen121
+\zeropoint=\dimen118
+\onepoint=\dimen119
+\onebasepoint=\dimen120
+\minusone=\count98
+\thousandpoint=\dimen121
+\onerealpoint=\dimen122
 \emptytoks=\toks17
 \nextbox=\box27
-\nextdepth=\dimen122
+\nextdepth=\dimen123
 \everyline=\toks18
-\!!counta=\count96
-\!!countb=\count97
-\recursecounter=\count98
+\!!counta=\count99
+\!!countb=\count100
+\recursecounter=\count101
 )
 loading : Context Support Macros / PDF (2004.03.26)
-\nofMPsegments=\count99
-\nofMParguments=\count100
-\MPscratchCnt=\count101
-\MPscratchDim=\dimen123
-\MPnumerator=\count102
+\nofMPsegments=\count102
+\nofMParguments=\count103
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen124
+\MPnumerator=\count105
 \everyMPtoPDFconversion=\toks19
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 18.
+(Font)              <12> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 18.
+(Font)              <8> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 18.
-
-
-LaTeX Warning: No \author given.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 29.
-(/usr/share/texmf/tex/latex/base/omscmr.fd
+(Font)              <6> on input line 25.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 31.
+ (/usr/share/texmf/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 29.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 31.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 32.
+(Font)              <10.95> on input line 47.
  [1
 
-{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (./icicle_doc.au
-x) ) 
+{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 113--115
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+ []
+
+[3] [4] (./icicle_doc.aux) ) 
 Here is how much of TeX's memory you used:
- 3077 strings out of 94500
- 47840 string characters out of 1176766
- 113549 words of memory out of 1000000
- 6237 multiletter control sequences out of 10000+50000
- 9062 words of font info for 36 fonts, out of 500000 for 2000
+ 3260 strings out of 94500
+ 50304 string characters out of 1176766
+ 115784 words of memory out of 1000000
+ 6397 multiletter control sequences out of 10000+50000
+ 9936 words of font info for 44 fonts, out of 500000 for 2000
  580 hyphenation exceptions out of 1000
- 36i,6n,38p,398b,347s stack positions out of 1500i,500n,5000p,200000b,5000s
+ 36i,4n,38p,398b,347s stack positions out of 1500i,500n,5000p,200000b,5000s
 PDF statistics:
- 40 PDF objects out of 300000
+ 67 PDF objects out of 300000
  0 named destinations out of 131072
- 5121 words of extra memory for PDF output out of 65536
-</usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/
-type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb><
-/usr/share/texmf/fonts/type1/bluesky/cm/cmsy8.pfb></usr/share/texmf/fonts/type1
-/bluesky/cm/cmr8.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.pfb></usr/
-share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/blu
-esky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr/sha
-re/texmf/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky
-/cm/cmr17.pfb>
-Output written on icicle_doc.pdf (2 pages, 67337 bytes).
+ 5889 words of extra memory for PDF output out of 65536
+</usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb>
+</usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type
+1/bluesky/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></us
+r/share/texmf/fonts/type1/bluesky/cm/cmti10.pfb></usr/share/texmf/fonts/type1/b
+luesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/sh
+are/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesk
+y/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/
+texmf/fonts/type1/bluesky/cm/cmti10.pfb></usr/share/texmf/fonts/type1/bluesky/c
+m/cmsy10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/tex
+mf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cm
+bx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr8.pfb></usr/share/texmf/fo
+nts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.p
+fb>
+Output written on icicle_doc.pdf (4 pages, 129669 bytes).

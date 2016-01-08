@@ -2,6 +2,8 @@
 \pdfoutput=1
 \usepackage[utf8]{inputenc}
 
+\usepackage{enumitem}
+
 %\usepackage[colorlinks=true,allcolors=blue]{hyperref}
 
 \usepackage{indentfirst}
@@ -11,6 +13,11 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{caption}
 
+\usepackage{authblk}
+\author[1]{Anna Zimniak}
+\affil[1]{Institute of Geophysics, Faculty of Physics, University of Warsaw, Poland} 
+
+
 \title{Kinematic model documentation}
 
 \begin{document}
@@ -18,6 +25,14 @@
 \maketitle
 
 \section{Introduction}
+
+The kinematic model called 'icicle' simulates a convective 2 - dimensional cloud in a domein of a size 1500~m in horizontal and 1500~m in vertical. It uses two libraries:
+\begin{itemize}
+	\item \textit{libcloudph++} - which represents all microphysical processes;
+	\item MPDATA - which controlls advection.
+\end{itemize}
+
+In the paper there are input arguments and output parameters of the model described.
 
 \section{Arguments}
 
@@ -35,7 +50,7 @@ A size of every single cell can be calculated as $\frac{1500\mbox{\scriptsize{ m
 \subsection{Output parameters}
 
 \begin{itemize}
-  \item \textbf{outdir} : string (required) \\ output HDF5 file name
+  \item \textbf{outdir} : string (required); \\ output catalog name
   \item \textbf{outfreq} : int (required); \\ output interval (in number of timesteps)
 \end{itemize}
 
@@ -48,16 +63,70 @@ A size of every single cell can be calculated as $\frac{1500\mbox{\scriptsize{ m
 \item \textbf{relax\_th\_rv} : bool (default = true);\\ potential temperature and water vapour mass mixing ratio tend to relax to initial condition during the simulation if 'true'. If 'false', theese variables change with condensation and coalescense and rain removes water vapour from the domain. To achieve a stationary situation this parameter must by 'true'.
 \item \textbf{micro} : str (required);\\ a method for computing microphysics. Valid options are: 'blk\_1m', 'blk\_2m' and 'lgrngn'.
  
-\textbf{blk\_1m} is a single-moment microphysics scheme. 
-\begin{itemize}
-\item \textbf{cond}
+Next arguments of the model depend on which of theese options has been chosen.
+
+\textbf{'blk\_1m'} is a single-moment microphysics scheme. Arguments for this scheme are: 
+\begin{itemize}[label=$\bullet$]
+\item \textbf{cond} : bool (default = true); \\ cloud water condensation
+\item \textbf{cevp} : bool (default = true); \\ cloud water evaporation
+\item \textbf{revp} : bool (default = true); \\ rain water evaporation
+\item \textbf{conv} : bool (default = true); \\ autoconversion of cloud water into rain
+\item \textbf{accr} : bool (default = true); \\ cloud water collection by rain
+\item \textbf{sedi} : bool (default = true); \\ rain water sedimentation.
 \end{itemize}
 
 
+\textbf{'blk\_2m'} is a double-moment microphysics scheme. Arguments for this scheme are:
+\begin{itemize}[label=$\bullet$]
+\item \textbf{acti} : bool (default = true); \\ cloud droplet activation
+\item \textbf{cond} : bool (default = true); \\ cloud water condensation
+\item \textbf{accr} : bool (default = true); \\ cloud water collection by rain
+\item \textbf{acnv} : bool (default = true); \\ autoconversion of cloud water into rain
+\item \textbf{sedi} : bool (default = true); \\ rain water sedimentation.
+\end{itemize}
 
-\textbf{blk\_2m} is a double-moment microphysics scheme. Options for this method are:
-\begin{itemize}
-\item \textbf{cond}
+\textbf{'lgrngn'} is a particle-based scheme (aka Lagrangian scheme) from \textit{libcloudph++}. It allows to track the properties of both aerosol particles and cloud droplets throught the entire simulation. Arguments for this scheme are:
+\begin{itemize}[label=$\bullet$]
+\item \textbf{backend} : string, one of: 'CUDA', 'OpenMP', 'serial' (required); \\ specification of a place, where computations with microphysics library are conducted: \\'CUDA' - graphics card, \\'OpenMP' - multithreaded on the processor, \\ 'serial' - single-threaded on the processor. 
+\item \textbf{async} : bool (default = true, ignored if backend != 'CUDA'); \\ computations for advection on the processor and computations for microphysics on the graphics card are done simultaneously
+\item \textbf{sd\_conc} : unsigned long long (required); \\ number of super-droplets per grid cell used by the particle-based microphysics scheme
+\item \textbf{adve} : bool (default = true); \\
+particle advection
+\item \textbf{sedi} : bool (default = true);\\
+particle sedimentation
+\item \textbf{cond} : bool (default = true);\\
+particle condensational growth
+\item \textbf{coal} : bool (default = true);\\
+particle collisional growth
+\item \textbf{chem\_dsl} : bool (default = false);\\
+dissolving trace gases
+\item \textbf{chem\_dsc} : bool (default = false);\\
+dissociation
+\item \textbf{chem\_rct} : bool (default = false);\\
+chemical reactions
+\item \textbf{sstp\_cond} : int (default = 1);\\
+number of substeps for condensation
+\item \textbf{sstp\_coal} : int (default = 1); \\
+number of substeps for coalescence
+\item \textbf{sstp\_chem} : int (default = 1); \\
+number of substeps for chemistry
+\item \textbf{out\_dry} : string (default = "0:1$|$0");\\
+dry radius ranges and moment numbers used to generate dry spectra. A way in which this argument has to be constructed is:\\
+
+"left1:right1$|$n1,n2,n3...;left2:right2$|$n1,n2,n3...;..."\\
+
+'Left' and 'right' denote left hand side and right hand side edges of the spectrum bins in meters. n1, n2, n3 etc. after the vertical line are numbers of desired moments of the spectrum. If more bins are wanted, they shoud be specified in the same way after semicolon.
+
+Default argument will generate one 0-th moment spectrum bin, which edges are specified from 0 to 1 m (the range is so wide to cover all sizes of particles).
+
+\item \textbf{out\_wet} : string (default = ".5e-6:25e-6$|$0,1,2,3;25e-6:1$|$0,3,6")\\
+wet radius ranges and moment numbers used to generate wet spectra. Construction of this argument is the same as in 'out\_dry'.
+
+Default argument will generate 7 output spectrum bins:\\
+- 0-th, 1-st, 2-nd and 3-th spectrum moments for the radius range 0.5 - 25 $\mu$m;
+
+- 0-th, 3-rd and 6-th spectrum moments for particles larger than 25 $\mu$m.
+
 \end{itemize}
 
 
@@ -66,8 +135,37 @@ A size of every single cell can be calculated as $\frac{1500\mbox{\scriptsize{ m
 
 \section{Output}
 
+The kinematic model writes output files in a catalog, which name is specified by the user in an argument 'outdir'. Output catalog consists of several HDF5 files:
 
+\begin{itemize}
+\item 'const.h5' - contains parameters constant through the entire simulation;
+\item 'timestep$<$number$>$.h5' - contains parameters for the specific time.
+\end{itemize}
 
-\section{Usage examples}
+'timestep' files are printed with a frequency specified in the 'outfreq' argument. The content of each HDF5 output file can be viewed in terminal by using the 'h5dump' command.
+
+For Lagrangian microphysics scheme in 'const.h5' file there are following parameters:
+
+\begin{itemize}
+\item \textbf{G} - dry air density [kg m\textsuperscript{-3}]. It is an array of a size nx x nz, so that each cell in the domain has a value attributed.
+\item \textbf{T} - time [s]. It is a list of outputed times. This dataset has an attribute \textbf{dt}, which is a timestep used in the simulation. It's value is set to 1 [s]. 
+\item \textbf{X} - number of a cell in hirizontal. It is an (nx+1)~x~(nz+1) array.
+\item \textbf{Y} - number of a cell in vertical. It is an (nx+1)~x~(nz+1) array.
+\end{itemize}
+
+All output variables in 'timestep' files consist of arrays of a size nx~x~nz, so that each cell in the domain has a value attributed. In each 'timestep' file there are following variables:
+
+\begin{itemize}
+\item \textbf{rd\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - dry radius spectrum bin for range and moment specified in the input argument. Ranges are enumerated in the same order as they were specified in the input. 
+
+\item \textbf{rw\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - wet radius spectrum bin for range and moment specified in the input argument. Ranges are enumerated in the same order as they were specified in the input.  
+
+\item \textbf{rv} - water vapour mixing ratio [kg/kg],
+
+\item \textbf{sd\_conc} - super droplet concentration [number per grid cell],
+
+\item \textbf{th} - dry potential temperature [K].
+
+\end{itemize}
 
 \end{document}
