@@ -14,8 +14,8 @@
 \usepackage{caption}
 
 \usepackage{authblk}
-\author[1]{Anna Zimniak}
-\affil[1]{Institute of Geophysics, Faculty of Physics, University of Warsaw, Poland} 
+\author{Anna Zimniak}
+\affil{Institute of Geophysics, Faculty of Physics, University of Warsaw, Poland} 
 
 
 \title{Kinematic model documentation}
@@ -26,17 +26,15 @@
 
 \section{Introduction}
 
-The kinematic model called 'icicle' simulates a convective 2 - dimensional cloud in a domein of a size 1500~m in horizontal and 1500~m in vertical. It uses two libraries:
+The kinematic model called 'icicle' simulates a convective 2 - dimensional cloud in a domain of a size 1500~m in horizontal and 1500~m in vertical. It uses two libraries:
 \begin{itemize}
 	\item \textit{libcloudph++} - which represents all microphysical processes;
-	\item MPDATA - which controlls advection.
+	\item \textit{libmpdata++} - which controlls advection.
 \end{itemize}
 
-In the paper there are input arguments and output parameters of the model described.
+Input arguments and output parameters of the model are described in following sections.
 
 \section{Arguments}
-
-The kinematic model takes following arguments:
 
 \subsection{Grid attributes}
 
@@ -44,28 +42,28 @@ The kinematic model takes following arguments:
 \item \textbf{nx} : int (default = 76);\\ grid cell count in horizontal
 \item \textbf{nz} : int (default = 76);\\ grid cell count in vertical
 
-A size of every single cell can be calculated as $\frac{1500\mbox{\scriptsize{ m}}}{\mbox{nx}-1}\mbox{ \scriptsize{x} }\frac{1500\mbox{\scriptsize{ m}}}{\mbox{ny}-1}$.
+A size of every single cell is given by $\frac{1500}{\mbox{nx}-1}\mbox{[m]  \scriptsize{x} }\frac{1500}{\mbox{ny}-1} \mbox{[m]}$.
 \end{itemize}
 
 \subsection{Output parameters}
 
 \begin{itemize}
   \item \textbf{outdir} : string (required); \\ output catalog name
-  \item \textbf{outfreq} : int (required); \\ output interval (in number of timesteps)
+  \item \textbf{outfreq} : int (required); \\ output frequency (time gap between outputted points in number of time steps)
 \end{itemize}
 
 \subsection{Simulation parameters}
 
 \begin{itemize}
 \item \textbf{nt} : int (default = 3600);\\ number of timesteps
-\item \textbf{spinup} : int (default = 2400);\\ number of initial timesteps during which rain formation is to be turned off
-\item \textbf{adv\_serial} : bool (default = false);\\ force advection to be computed on a single thread if 'true', advection is computed on multiple threads if 'false'
-\item \textbf{relax\_th\_rv} : bool (default = true);\\ potential temperature and water vapour mass mixing ratio tend to relax to initial condition during the simulation if 'true'. If 'false', theese variables change with condensation and coalescense and rain removes water vapour from the domain. To achieve a stationary situation this parameter must by 'true'.
-\item \textbf{micro} : str (required);\\ a method for computing microphysics. Valid options are: 'blk\_1m', 'blk\_2m' and 'lgrngn'.
+\item \textbf{spinup} : int (default = 2400);\\ number of initial timesteps during which collision - coalescence processes are turned off
+\item \textbf{adv\_serial} : bool (default = false);\\ if 'true' - advection is computed on a single thread, \\if 'false' - advection is computed on multiple threads. 
+\item \textbf{relax\_th\_rv} : bool (default = true);\\ if 'true' - potential temperature and water vapour mass mixing ratio tend to relax to initial condition during the simulation, \\ if 'false' - these variables change with condensation and coalescense and rain removes water vapour from the domain. To achieve a stationary situation this parameter must be set to 'true'.
+\item \textbf{micro} : str (required);\\ defines a method for microphysics computation. Valid options are: 'blk\_1m', 'blk\_2m' and 'lgrngn'.
  
-Next arguments of the model depend on which of theese options has been chosen.
+Next arguments of the model depend on the choice of the \textbf{micro} option.
 
-\textbf{'blk\_1m'} is a single-moment microphysics scheme. Arguments for this scheme are: 
+\textbf{'blk\_1m'} : a single-moment microphysics scheme. Arguments for this scheme are: 
 \begin{itemize}[label=$\bullet$]
 \item \textbf{cond} : bool (default = true); \\ cloud water condensation
 \item \textbf{cevp} : bool (default = true); \\ cloud water evaporation
@@ -76,7 +74,7 @@ Next arguments of the model depend on which of theese options has been chosen.
 \end{itemize}
 
 
-\textbf{'blk\_2m'} is a double-moment microphysics scheme. Arguments for this scheme are:
+\textbf{'blk\_2m'} : a double-moment microphysics scheme. Arguments for this scheme are:
 \begin{itemize}[label=$\bullet$]
 \item \textbf{acti} : bool (default = true); \\ cloud droplet activation
 \item \textbf{cond} : bool (default = true); \\ cloud water condensation
@@ -85,11 +83,12 @@ Next arguments of the model depend on which of theese options has been chosen.
 \item \textbf{sedi} : bool (default = true); \\ rain water sedimentation.
 \end{itemize}
 
-\textbf{'lgrngn'} is a particle-based scheme (aka Lagrangian scheme) from \textit{libcloudph++}. It allows to track the properties of both aerosol particles and cloud droplets throught the entire simulation. Arguments for this scheme are:
+\textbf{'lgrngn'} : a particle-based scheme (aka Lagrangian scheme). It allows to track particles/ aerosol/ cloud droplets/ raindrops properties throught the entire simulation. Arguments for this scheme are:
 \begin{itemize}[label=$\bullet$]
-\item \textbf{backend} : string, one of: 'CUDA', 'OpenMP', 'serial' (required); \\ specification of a place, where computations with microphysics library are conducted: \\'CUDA' - graphics card, \\'OpenMP' - multithreaded on the processor, \\ 'serial' - single-threaded on the processor. 
-\item \textbf{async} : bool (default = true, ignored if backend != 'CUDA'); \\ computations for advection on the processor and computations for microphysics on the graphics card are done simultaneously
-\item \textbf{sd\_conc} : unsigned long long (required); \\ number of super-droplets per grid cell used by the particle-based microphysics scheme
+\item \textbf{backend} : string (required); \\ specification of a device, on which computations with microphysics library are conducted. Valid options are: \\'CUDA' - graphics card, \\'OpenMP' - multithreaded on the processor, \\ 'serial' - single-threaded on the processor. 
+\item \textbf{async} : bool (default = true, ignored if backend is not set to 'CUDA'); \\if 'true' - computations for advection on the processor and computations for microphysics on the graphics card are being conducted simultaneously,\\
+if 'false' - these computations are being conducted in sequence.
+\item \textbf{sd\_conc} : int (required); \\ number of super-droplets per grid cell used in the particle-based microphysics scheme
 \item \textbf{adve} : bool (default = true); \\
 particle advection
 \item \textbf{sedi} : bool (default = true);\\
@@ -111,7 +110,7 @@ number of substeps for coalescence
 \item \textbf{sstp\_chem} : int (default = 1); \\
 number of substeps for chemistry
 \item \textbf{out\_dry} : string (default = "0:1$|$0");\\
-dry radius ranges and moment numbers used to generate dry spectra. A way in which this argument has to be constructed is:\\
+dry radius ranges and moment numbers used to generate dry spectra. A way in which this argument has to be constructed in the following way:\\
 
 "left1:right1$|$n1,n2,n3...;left2:right2$|$n1,n2,n3...;..."\\
 
@@ -129,36 +128,36 @@ Default argument will generate 7 output spectrum bins:\\
 
 \end{itemize}
 
-
-
 \end{itemize}
 
 \section{Output}
 
-The kinematic model writes output files in a catalog, which name is specified by the user in an argument 'outdir'. Output catalog consists of several HDF5 files:
+The output files are put in the catalog 'outdir' (specified by the user). Output catalog consists of several HDF5 files:
 
 \begin{itemize}
 \item 'const.h5' - contains parameters constant through the entire simulation;
 \item 'timestep$<$number$>$.h5' - contains parameters for the specific time.
 \end{itemize}
 
-'timestep' files are printed with a frequency specified in the 'outfreq' argument. The content of each HDF5 output file can be viewed in terminal by using the 'h5dump' command.
+'timestep' files are printed with a time gap specified in the 'outfreq' argument. 'number' in the file name denotes actual timestep.
+
+The content of each HDF5 output file can be viewed in a terminal by using the 'h5dump' command.
 
 For Lagrangian microphysics scheme in 'const.h5' file there are following parameters:
 
 \begin{itemize}
-\item \textbf{G} - dry air density [kg m\textsuperscript{-3}]. It is an array of a size nx x nz, so that each cell in the domain has a value attributed.
+\item \textbf{G} - dry air density [kg m\textsuperscript{-3}]. It is an array of a size nx x nz.
 \item \textbf{T} - time [s]. It is a list of outputed times. This dataset has an attribute \textbf{dt}, which is a timestep used in the simulation. It's value is set to 1 [s]. 
-\item \textbf{X} - number of a cell in hirizontal. It is an (nx+1)~x~(nz+1) array.
-\item \textbf{Y} - number of a cell in vertical. It is an (nx+1)~x~(nz+1) array.
+\item \textbf{X} - number of the cell in hirizontal. It is an nx~x~nz array.
+\item \textbf{Y} - number of the cell in vertical. It is an nx~x~nz array.
 \end{itemize}
 
 All output variables in 'timestep' files consist of arrays of a size nx~x~nz, so that each cell in the domain has a value attributed. In each 'timestep' file there are following variables:
 
 \begin{itemize}
-\item \textbf{rd\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - dry radius spectrum bin for range and moment specified in the input argument. Ranges are enumerated in the same order as they were specified in the input. 
+\item \textbf{rd\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - dry radius spectrum bin for range and moment specified in the input argument. A value of the moment is given per 1~kg of dry air. Ranges are enumerated in the same order as they were specified in the input. 
 
-\item \textbf{rw\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - wet radius spectrum bin for range and moment specified in the input argument. Ranges are enumerated in the same order as they were specified in the input.  
+\item \textbf{rw\_rng$<$number\_of\_range$>$\_mom$<$number\_of\_moment$>$} - wet radius spectrum bin for range and moment specified in the input argument. A value of the moment is given per 1~kg of dry air. Ranges are enumerated in the same order as they were specified in the input.  
 
 \item \textbf{rv} - water vapour mixing ratio [kg/kg],
 
